@@ -18,7 +18,7 @@ public class WordDAOImpl implements WordDAO {
 	}
 
 	@Override
-	public int wordCount(String word) {
+	public int countCheck(String word) {
 		return word.length();
 	}
 

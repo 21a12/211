@@ -6,7 +6,7 @@ public interface WordDAO {
 
 	public int create(String word);
 
-	public int wordCount(String word);
+	public int countCheck(String word);
 
 	public boolean overLap(String word);
 

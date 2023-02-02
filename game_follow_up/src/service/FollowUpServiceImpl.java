@@ -21,8 +21,8 @@ public class FollowUpServiceImpl implements FollowUpService {
 	}
 
 	@Override
-	public boolean wordCount(String word) {
-		return wordDAO.wordCount(word) == numOfChar;
+	public boolean countCheck(String word) {
+		return wordDAO.countCheck(word) == numOfChar;
 	}
 
 	@Override

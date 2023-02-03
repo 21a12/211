@@ -9,7 +9,7 @@ public class FollowUpServiceImpl implements FollowUpService {
 
 	private WordDAO wordDAO;
 	
-	private int numOfChar = 5;
+//	private int numOfChar = 5;
 
 	public FollowUpServiceImpl() {
 		wordDAO = new WordDAOImpl();
@@ -21,8 +21,8 @@ public class FollowUpServiceImpl implements FollowUpService {
 	}
 
 	@Override
-	public boolean countCheck(String word) {
-		return wordDAO.countCheck(word) == numOfChar;
+	public boolean countCheck(String word,int count) {
+		return wordDAO.countCheck(word) == count;
 	}
 
 	@Override
@@ -41,12 +41,12 @@ public class FollowUpServiceImpl implements FollowUpService {
 	}
 
 	@Override
-	public String lastChar() {
-		return wordDAO.lastChar(numOfChar);
+	public String lastChar(int count) {
+		return wordDAO.lastChar(count);
 	}
 
 	@Override
-	public boolean firstCharCheck(String word) {
-		return wordDAO.firstCharCheck(word, numOfChar);
+	public boolean firstCharCheck(String word, int count) {
+		return wordDAO.firstCharCheck(word, count);
 	}
 }

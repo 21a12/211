@@ -17,4 +17,5 @@ public interface WordDAO {
 	public String lastChar(int numOfChar);
 	
 	public boolean firstCharCheck(String word, int numOfChar);
+	
 }

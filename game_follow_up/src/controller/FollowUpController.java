@@ -7,13 +7,13 @@ import service.FollowUpServiceImpl;
 
 public class FollowUpController {
 
-//	예외처리로 추가하기 어렵맨
+	
 //	public static final int WORDCOUNT;
 //
 //	static {
 //		WORDCOUNT = 3;
 //	}
-//
+//	예외처리로 추가하기 어렵맨
 //	public static void wordCount(String word) {
 //		if (word.length() != WORDCOUNT) {
 //			throw new CountCheckException("!!!" + WORDCOUNT + "글자가 아님");
@@ -30,18 +30,25 @@ public class FollowUpController {
 		
 		Scanner scan = new Scanner(System.in);
 
-		System.out.print("시작 단어를 입력하세요 :");
+		System.out.println("시작 단어를 입력하세요 :");
 		
-		String word = scan.nextLine();
-		
-		
-//		System.out.println(service.wordCount(word));
-		
-		if (service.countCheck(word)) {
-			service.create(word);
-			System.out.println("시작단어 저장o");
+		String word = "";
+
+		while (true) {
+
+			word =  scan.nextLine();
+			if (service.countCheck(word)) {
+				service.create(word);
+				System.out.println("시작단어 저장o");
+				break;
+			} else {
+				System.out.println("!!글자수 맞지않음");
+				
+			}
+
 		}
-		
+
+//		System.out.println(service.countCheck(word));
 		System.out.println(service.lastChar()+" << 로 시작"); 
 		
 		while (true) {
@@ -49,13 +56,13 @@ public class FollowUpController {
 			//입력 단어 받기
 			word = scan.nextLine();
 
-			if (word.equals("포기")) {
-				System.out.println("!!!게임을 종료합니다!!!");
+			if (word.equals("종료")) {
+				System.out.println("!!!게임 종료!!!");
 
 				System.out.println("===입력한 단어 목록===");
 				service.readAll();
 
-				System.out.println("!!!게임을 종료합니다!!!");
+				System.out.println("!!!게임 종료!!!");
 				break;
 			}
 			

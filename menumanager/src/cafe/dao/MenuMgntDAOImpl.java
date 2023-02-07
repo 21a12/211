@@ -45,22 +45,23 @@ public class MenuMgntDAOImpl implements MenuMgntDAO {
 
 	@Override
 	public List<MenuMgntVO> readSome(String itemType) {
-		for (MenuMgntVO itemList : dataSource.get(itemType)) {
-			System.out.println(itemList);
-		}
-		return null;
+//		int cnt = 0;
+//		for (MenuMgntVO itemList : dataSource.get(itemType)) {
+//			System.out.printf("[%d] %s\n",cnt++, itemList.getItemName());
+//		}
+		return dataSource.get(itemType);
 	}
 
 	@Override
 	public Map<String, List<MenuMgntVO>> readAll() {
-		Iterator<String> itemType = dataSource.keySet().iterator();
-		while (itemType.hasNext()) {
-			System.out.println("=="+itemType+"==");
-			for (MenuMgntVO itemList : dataSource.get(itemType)) {
-				System.out.println(itemList);
-			}
-		}
-		return null;
+//		Iterator<String> itemType = dataSource.keySet().iterator();
+//		while (itemType.hasNext()) {
+//			System.out.println("=="+itemType+"==");
+//			for (MenuMgntVO itemList : dataSource.get(itemType)) {
+//				System.out.println(itemList.getItemName());
+//			}
+//		}
+		return dataSource;
 
 //				dataSource.entrySet()
 //				.stream()

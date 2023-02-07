@@ -1,9 +1,14 @@
 package cafe.controller;
 
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 
 import cafe.service.MenuMgntService;
 import cafe.service.MenuMgntServiceImpl;
+import cafe.vo.MenuMgntVO;
 
 public class MenuMgntController {
 
@@ -75,20 +80,234 @@ public class MenuMgntController {
 					scan.nextLine();
 				}
 			}
-			
-			if (menu==1) {
+			// 등록	.create(itemType1, name)
+			else if (menu==1) {
 				TypePrint();
-				System.out.print("등록할 메뉴 타입 선택 : ");
+				System.out.print("등록할 메뉴 타입 선택(숫자) : ");
 				int itemType = scan.nextInt();
 				scan.nextLine();
-				System.out.print("등록할 메뉴 이름 작성 : ");
+				
+				String itemType1 = "";
+				if (itemType==1) {
+					itemType1 = "커피";
+				} else if(itemType==2) {
+					itemType1 = "음료";
+				} else if(itemType==3) {
+					itemType1 = "티";
+				} else if(itemType==4) {
+					itemType1 = "디저트";
+				} else {
+					System.out.println("");
+					continue;
+				}
+				
+				System.out.print("등록할 메뉴 이름 작성(문자) : ");
 				String itemName = scan.nextLine();
 				
-				
-				
-					
+				MenuMgntVO name = new MenuMgntVO();
+				name.setItemName(itemName);
+				service.create(itemType1, name);
+				System.out.println("!!등록 완료!!");
+
 			}
+			
+			// 수정	.update(itemType1, itemIdx, name)
+			else if (menu==2) {
+				TypePrint();
+				System.out.print("수정할 메뉴 타입 선택(숫자) : ");
 				
+				int itemType = scan.nextInt();
+				scan.nextLine();
+				
+				String itemType1 = "";
+				if (itemType==1) {
+					itemType1 = "커피";
+				} else if(itemType==2) {
+					itemType1 = "음료";
+				} else if(itemType==3) {
+					itemType1 = "티";
+				} else if(itemType==4) {
+					itemType1 = "디저트";
+				} else {
+					System.out.println("유효하지않음 뒤로가기");
+					continue;
+				}
+				
+				int cnt = 0;
+				for (MenuMgntVO itemList : service.readSome(itemType1)) {
+					System.out.printf("[%d] %s\n",cnt++, itemList.getItemName());
+				};
+				
+				// 목록 없을 때 탈출
+				if (cnt == 0) {
+					System.out.println("아이템 목록이 존재하지 않음 ㅂ");
+					continue;
+				}
+				
+				System.out.print("수정할 아이템 인덱스 입력(숫자) : ");
+				int itemIdx = scan.nextInt();
+				scan.nextLine();
+				
+				if (itemIdx >= cnt) {
+					System.out.println("유효하지않음 뒤로가기");
+					continue;
+				}
+				
+				
+				System.out.print("수정할 메뉴 이름 작성(문자) : ");
+				String itemName = scan.nextLine();
+				
+				MenuMgntVO name = new MenuMgntVO();
+				name.setItemName(itemName);
+				
+				service.update(itemType1, itemIdx, name);
+				System.out.println("!!수정 완료!!");
+			}
+			
+			// 삭제	.delete(itemType1, itemIdx)
+			else if (menu==3) {
+				TypePrint();
+				System.out.print("삭제할 메뉴 타입 선택(숫자) : ");
+				int itemType = scan.nextInt();
+				scan.nextLine();
+				
+				String itemType1 = "";
+				if (itemType==1) {
+					itemType1 = "커피";
+				} else if(itemType==2) {
+					itemType1 = "음료";
+				} else if(itemType==3) {
+					itemType1 = "티";
+				} else if(itemType==4) {
+					itemType1 = "디저트";
+				} else {
+					System.out.println("유효하지않음 뒤로가기");
+					continue;
+				}
+				
+				int cnt = 0;
+				for (MenuMgntVO itemList : service.readSome(itemType1)) {
+					System.out.printf("[%d] %s\n",cnt++, itemList.getItemName());
+				};
+				
+				// 목록 없을 때 탈출
+				if (cnt == 0) {
+					System.out.println("아이템 목록이 존재하지 않음 ㅂ");
+					continue;
+				}
+				
+				System.out.print("삭제할 아이템 인덱스 입력(숫자) : ");
+				int itemIdx = scan.nextInt();
+				scan.nextLine();
+				
+				service.delete(itemType1, itemIdx);
+				System.out.println("!!삭제 완료!!");
+				
+				
+			}
+			
+			// 조회...단일	.readSome(itemType)
+			else if (menu==4) {
+				TypePrint();
+				System.out.print("조회할 메뉴 타입 선택(숫자) : ");
+				int itemType = scan.nextInt();
+				scan.nextLine();
+				
+				String itemType1 = "";
+				if (itemType==1) {
+					itemType1 = "커피";
+				} else if(itemType==2) {
+					itemType1 = "음료";
+				} else if(itemType==3) {
+					itemType1 = "티";
+				} else if(itemType==4) {
+					itemType1 = "디저트";
+				} else {
+					System.out.println("유효하지않음 뒤로가기");
+					continue;
+				}
+				
+				int cnt = 0;
+				for (MenuMgntVO itemList : service.readSome(itemType1)) {
+					System.out.printf("[%d] %s\n",cnt++, itemList.getItemName());
+				};
+				
+				// 목록 없을 때 탈출
+				if (cnt == 0) {
+					System.out.println("아이템 목록이 존재하지 않음 ㅂ");
+					continue;
+				}
+				
+				System.out.print("조회할 아이템 인덱스 입력(숫자) : ");
+				int itemIdx = scan.nextInt();
+				scan.nextLine();
+				
+				if (itemIdx > cnt) {
+					System.out.println("유효하지않음 뒤로가기");
+					continue;
+				}
+				
+				System.out.println(service.read(itemType1, itemIdx).getItemName());
+				
+			}
+			
+			// 조회...종류별
+			else if (menu==5) {
+				TypePrint();
+				System.out.print("조회할 메뉴 타입 선택(숫자) : ");
+				int itemType = scan.nextInt();
+				scan.nextLine();
+				
+				String itemType1 = "";
+				if (itemType==1) {
+					itemType1 = "커피";
+				} else if(itemType==2) {
+					itemType1 = "음료";
+				} else if(itemType==3) {
+					itemType1 = "티";
+				} else if(itemType==4) {
+					itemType1 = "디저트";
+				} else {
+					System.out.println("유효하지않음 뒤로가기");
+					continue;
+				}
+				
+				int cnt = 0;
+				for (MenuMgntVO itemList : service.readSome(itemType1)) {
+					System.out.printf("[%d] %s\n",cnt++, itemList.getItemName());
+				};
+				
+				// 목록 없을 때 탈출
+				if (cnt == 0) {
+					System.out.println("아이템 목록이 존재하지 않음 ㅂ");
+					continue;
+				}
+				
+				if (itemType > cnt) {
+					System.out.println("유효하지않음 뒤로가기");
+					continue;
+				}
+				
+				
+				
+			}
+			
+			// 조회...전체
+			else if (menu==6) {
+				Map<String, List<MenuMgntVO>> mapList = new HashMap<>(service.readAll());
+				for (String type : mapList.keySet()) {
+					System.out.println("====	"+type+"	====");
+					for(MenuMgntVO item : mapList.get(type)) {
+						System.out.println(item.getItemName());
+					}
+				}
+								
+				
+			}
+			
+			else {
+				System.out.println("번호 잘눌러줭");
+			}
 		}
 
 	}

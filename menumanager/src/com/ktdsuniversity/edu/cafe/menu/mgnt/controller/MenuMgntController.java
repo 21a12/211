@@ -35,6 +35,20 @@ public class MenuMgntController {
 		System.out.println("====뒤로가기 아무버튼====");
 		
 	}
+	private static String menuSelect(int num) {
+		if (num==1) {
+			return "커피";
+		} else if(num==2) {
+			return "음료";
+		} else if(num==3) {
+			return "티";
+		} else if(num==4) {
+			return "디저트";
+		} else {
+			return "없음";
+		}
+	}
+	
 	
 
 	public static void main(String[] args) {
@@ -87,17 +101,9 @@ public class MenuMgntController {
 				int itemType = scan.nextInt();
 				scan.nextLine();
 				
-				String itemType1 = "";
-				if (itemType==1) {
-					itemType1 = "커피";
-				} else if(itemType==2) {
-					itemType1 = "음료";
-				} else if(itemType==3) {
-					itemType1 = "티";
-				} else if(itemType==4) {
-					itemType1 = "디저트";
-				} else {
-					System.out.println("");
+				String itemType1 = menuSelect(itemType);
+				if (itemType1.equals("없음")){
+					System.out.println("유효하지않음 뒤로가기");
 					continue;
 				}
 				
@@ -119,16 +125,8 @@ public class MenuMgntController {
 				int itemType = scan.nextInt();
 				scan.nextLine();
 				
-				String itemType1 = "";
-				if (itemType==1) {
-					itemType1 = "커피";
-				} else if(itemType==2) {
-					itemType1 = "음료";
-				} else if(itemType==3) {
-					itemType1 = "티";
-				} else if(itemType==4) {
-					itemType1 = "디저트";
-				} else {
+				String itemType1 = menuSelect(itemType);
+				if (itemType1.equals("없음")){
 					System.out.println("유효하지않음 뒤로가기");
 					continue;
 				}
@@ -171,16 +169,8 @@ public class MenuMgntController {
 				int itemType = scan.nextInt();
 				scan.nextLine();
 				
-				String itemType1 = "";
-				if (itemType==1) {
-					itemType1 = "커피";
-				} else if(itemType==2) {
-					itemType1 = "음료";
-				} else if(itemType==3) {
-					itemType1 = "티";
-				} else if(itemType==4) {
-					itemType1 = "디저트";
-				} else {
+				String itemType1 = menuSelect(itemType);
+				if (itemType1.equals("없음")){
 					System.out.println("유효하지않음 뒤로가기");
 					continue;
 				}
@@ -213,16 +203,8 @@ public class MenuMgntController {
 				int itemType = scan.nextInt();
 				scan.nextLine();
 				
-				String itemType1 = "";
-				if (itemType==1) {
-					itemType1 = "커피";
-				} else if(itemType==2) {
-					itemType1 = "음료";
-				} else if(itemType==3) {
-					itemType1 = "티";
-				} else if(itemType==4) {
-					itemType1 = "디저트";
-				} else {
+				String itemType1 = menuSelect(itemType);
+				if (itemType1.equals("없음")){
 					System.out.println("유효하지않음 뒤로가기");
 					continue;
 				}
@@ -258,16 +240,8 @@ public class MenuMgntController {
 				int itemType = scan.nextInt();
 				scan.nextLine();
 				
-				String itemType1 = "";
-				if (itemType==1) {
-					itemType1 = "커피";
-				} else if(itemType==2) {
-					itemType1 = "음료";
-				} else if(itemType==3) {
-					itemType1 = "티";
-				} else if(itemType==4) {
-					itemType1 = "디저트";
-				} else {
+				String itemType1 = menuSelect(itemType);
+				if (itemType1.equals("없음")){
 					System.out.println("유효하지않음 뒤로가기");
 					continue;
 				}

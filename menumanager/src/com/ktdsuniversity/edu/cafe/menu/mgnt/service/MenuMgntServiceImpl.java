@@ -1,11 +1,11 @@
-package cafe.service;
+package com.ktdsuniversity.edu.cafe.menu.mgnt.service;
 
 import java.util.List;
 import java.util.Map;
 
-import cafe.dao.MenuMgntDAO;
-import cafe.dao.MenuMgntDAOImpl;
-import cafe.vo.MenuMgntVO;
+import com.ktdsuniversity.edu.cafe.menu.mgnt.dao.MenuMgntDAO;
+import com.ktdsuniversity.edu.cafe.menu.mgnt.dao.MenuMgntDAOImpl;
+import com.ktdsuniversity.edu.cafe.menu.mgnt.vo.MenuMgntVO;
 
 public class MenuMgntServiceImpl implements MenuMgntService {
 

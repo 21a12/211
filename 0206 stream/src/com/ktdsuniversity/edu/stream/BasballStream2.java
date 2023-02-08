@@ -223,7 +223,7 @@ public class BasballStream2 {
 //									.forEach(System.out::println);	// 출력 다른방법
 		System.out.println(value.orElse("없음"));
 		
-		System.out.println("8-1	runtime: "+(System.currentTimeMillis()-startTime));	// 작업시간 확인
+		System.out.println("	8-1	runtime: "+(System.currentTimeMillis()-startTime));	// 작업시간 확인
 		
 		
 		
@@ -234,7 +234,7 @@ public class BasballStream2 {
 					.map(vo -> vo.getValue())
 					.forEach(System.out::println);
 		
-		System.out.println("8-2	runtime: "+(System.currentTimeMillis()-startTime));	// 작업시간 확인
+		System.out.println("	8-2	runtime: "+(System.currentTimeMillis()-startTime));	// 작업시간 확인
 		
 		
 		
@@ -251,54 +251,119 @@ public class BasballStream2 {
 		
 		System.out.println(ab.get(0).length);
 		
-		System.out.println("9	runtime: "+(System.currentTimeMillis()-startTime));	// 작업시간 확인
+		System.out.println("	9	runtime: "+(System.currentTimeMillis()-startTime));	// 작업시간 확인
 
 		
 		
-		// Q10	(병렬) 10K.ID.CONTENTS 파일에서 내용이 없는 "번호" 개수
+		
+		
+		String abc = null;
+		boolean isEmpty = abc == null || abc.length() == 0;
+		
+		// Q10	(병렬) 10K.ID.CONTENTS 파일에서 내용이 없는 "번호" 개수 .. 공백만 있는것도 카운트 포함
 		startTime = System.currentTimeMillis();	// 작업시간 확인
-					
+		List<String> q10 = readTextFile().stream()
+					.filter(vo -> vo.getValue()==null || vo.getValue().trim().length()==0)	// vo.getValue().isEmpty()
+					.map(vo -> vo.getKey())
+					.collect(Collectors.toList());
+		System.out.println(q10.size());
 		
+		System.out.println("	10	runtime: "+(System.currentTimeMillis()-startTime));	// 작업시간 확인
 		
-		System.out.println("10	runtime: "+(System.currentTimeMillis()-startTime));	// 작업시간 확인
 		
 		
 		// Q11	(병렬) 10K.ID.CONTENTS 파일에서 두 개의 단어로만 이루어진 "번호" 개수
 		startTime = System.currentTimeMillis();	// 작업시간 확인
-//		readTextFile().parallelStream()
-//					.filter(vo -> vo.getValue().split(" ").length == 2)
-					
+		long q11 = readTextFile().parallelStream()
+					.filter(vo -> vo.getValue()!=null)
+					.filter(vo -> vo.getValue().split(" ").length==2 )
+					.map(vo -> vo.getKey())
+					.count();
+		System.out.println(q11);
+		
+		System.out.println("	11	runtime: "+(System.currentTimeMillis()-startTime));	// 작업시간 확인
 		
 		
-//		System.out.println("11	runtime: "+(System.currentTimeMillis()-startTime));	// 작업시간 확인
-//		// Q12	(병렬) 10K.ID.CONTENTS 파일에서 내용에 "that" 포함된 글 개수
-//		startTime = System.currentTimeMillis();	// 작업시간 확인
-//		
-//		System.out.println("12	runtime: "+(System.currentTimeMillis()-startTime));	// 작업시간 확인
+		
+		// Q12	(병렬) 10K.ID.CONTENTS 파일에서 내용에 "that" 포함된 글 개수
+		startTime = System.currentTimeMillis();	// 작업시간 확인
+		long q12 = readTextFile().stream()
+					.filter(vo -> vo.getValue()!=null)
+					.filter(vo -> vo.getValue().contains("that"))
+					.map(vo -> vo.getKey())
+					.count();
+		System.out.println(q12);
+		
+		System.out.println("	12	runtime: "+(System.currentTimeMillis()-startTime));	// 작업시간 확인
+		
+		
+		
 //		// Q13	(병렬) 10K.ID.CONTENTS 파일에서 글 번호가 6자리 개수
-//		startTime = System.currentTimeMillis();	// 작업시간 확인
-//		
-//		System.out.println("13	runtime: "+(System.currentTimeMillis()-startTime));	// 작업시간 확인
-//		// Q14	(병렬) 10K.ID.CONTENTS 파일에서 글 번호가 7자리 개수
-//		startTime = System.currentTimeMillis();	// 작업시간 확인
-//		
-//		System.out.println("14	runtime: "+(System.currentTimeMillis()-startTime));	// 작업시간 확인
-//		// Q15	(병렬) 10K.ID.CONTENTS 파일에서 글 번호가 9로 시작하는 모든 글의 첫번째 단어
-//		startTime = System.currentTimeMillis();	// 작업시간 확인
-//		
-//		System.out.println("15	runtime: "+(System.currentTimeMillis()-startTime));	// 작업시간 확인
-//		// Q16	(병렬) 10K.ID.CONTENTS 파일에서 
-//		startTime = System.currentTimeMillis();	// 작업시간 확인
-//		
-//		System.out.println("16	runtime: "+(System.currentTimeMillis()-startTime));	// 작업시간 확인
-//		// Q17	(병렬) 10K.ID.CONTENTS 파일에서 
-//		startTime = System.currentTimeMillis();	// 작업시간 확인
-//		
-//		System.out.println("17	runtime: "+(System.currentTimeMillis()-startTime));	// 작업시간 확인
-//		// Q18	(병렬) 10K.ID.CONTENTS 파일에서 
-//		startTime = System.currentTimeMillis();	// 작업시간 확인
-//		
-//		System.out.println("18	runtime: "+(System.currentTimeMillis()-startTime));	// 작업시간 확인
+		startTime = System.currentTimeMillis();	// 작업시간 확인
+		long q13 = readTextFile().stream()
+								.filter(vo -> vo.getKey().length()==6)
+								.count();
+		System.out.println(q13);
+					
+		System.out.println("	13	runtime: "+(System.currentTimeMillis()-startTime));	// 작업시간 확인
+		
+		
+		
+		
+		// Q14	(병렬) 10K.ID.CONTENTS 파일에서 글 번호가 7자리 개수
+		startTime = System.currentTimeMillis();	// 작업시간 확인
+		long q14 = readTextFile().stream()
+					.filter(vo -> vo.getKey().length()==7)
+					.count();
+		System.out.println(q14);
+		
+		System.out.println("	14	runtime: "+(System.currentTimeMillis()-startTime));	// 작업시간 확인
+		
+		
+		
+		// Q15	(병렬) 10K.ID.CONTENTS 파일에서 글 번호가 9로 시작하는 모든 글의 첫번째 단어 ... 비었으면 null? 출력
+		startTime = System.currentTimeMillis();	// 작업시간 확인
+		readTextFile().stream()
+					.filter(vo -> vo.getKey().startsWith("9"))
+					
+//					// 한줄로 풀기
+//					.map(vo -> vo.getValue()==null ? "" : vo.getValue().trim().split(" ")[0] )
+					
+					// 한줄로 풀기 삼항연산자 if문으로 바꾸기
+					.map(vo -> {
+						if (vo.getValue() != null && vo.getValue().trim().length()>0) {
+							return vo.getValue().trim().split(" ")[0];
+						}
+						return "";
+					})
+					
+					
+//					// 두줄로 풀기
+//					.map(vo -> vo.getValue()==null ? "" : vo.getValue())
+//					.map(desc -> desc.trim().contains(" ") ? desc.split(" ")[0] :"")
+					
+					
+					.forEach(word -> {
+						System.out.println("15-1 [" + word + "]");
+					});	
+		
+		System.out.println("	15	runtime: "+(System.currentTimeMillis()-startTime));	// 작업시간 확인
+		
+		
+		
+//		// Q16	(병렬) 10K.ID.CONTENTS 파일에서 내용이 있으며 글 번호가 7로 시작하는 모든 글들의 첫번째 단어만 출력
+		startTime = System.currentTimeMillis();	// 작업시간 확인
+		readTextFile().stream()
+					.filter(vo -> vo.getValue() != null && !vo.getValue().isEmpty())
+					.filter(vo -> vo.getKey().startsWith("7"))
+					.map(vo -> vo.getValue().split(" ")[0])
+					.forEach(System.out::println);
+		System.out.println("	16	runtime: "+(System.currentTimeMillis()-startTime));	// 작업시간 확인
+		
+		
+		
+		
+	
 		
 		
 		

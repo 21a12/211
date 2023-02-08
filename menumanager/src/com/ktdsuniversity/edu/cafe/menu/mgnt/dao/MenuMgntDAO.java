@@ -1,9 +1,9 @@
-package cafe.dao;
+package com.ktdsuniversity.edu.cafe.menu.mgnt.dao;
 
 import java.util.List;
 import java.util.Map;
 
-import cafe.vo.MenuMgntVO;
+import com.ktdsuniversity.edu.cafe.menu.mgnt.vo.MenuMgntVO;
 
 public interface MenuMgntDAO {
 

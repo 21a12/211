@@ -1,4 +1,4 @@
-package cafe.vo;
+package com.ktdsuniversity.edu.cafe.menu.mgnt.vo;
 
 public class MenuMgntVO {
 

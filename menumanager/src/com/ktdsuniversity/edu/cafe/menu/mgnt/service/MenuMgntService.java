@@ -1,9 +1,9 @@
-package cafe.service;
+package com.ktdsuniversity.edu.cafe.menu.mgnt.service;
 
 import java.util.List;
 import java.util.Map;
 
-import cafe.vo.MenuMgntVO;
+import com.ktdsuniversity.edu.cafe.menu.mgnt.vo.MenuMgntVO;
 
 public interface MenuMgntService {
 

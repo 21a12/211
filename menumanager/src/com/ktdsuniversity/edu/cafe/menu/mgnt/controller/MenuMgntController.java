@@ -1,4 +1,4 @@
-package cafe.controller;
+package com.ktdsuniversity.edu.cafe.menu.mgnt.controller;
 
 import java.util.HashMap;
 import java.util.Iterator;
@@ -6,9 +6,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
-import cafe.service.MenuMgntService;
-import cafe.service.MenuMgntServiceImpl;
-import cafe.vo.MenuMgntVO;
+import com.ktdsuniversity.edu.cafe.menu.mgnt.service.MenuMgntService;
+import com.ktdsuniversity.edu.cafe.menu.mgnt.service.MenuMgntServiceImpl;
+import com.ktdsuniversity.edu.cafe.menu.mgnt.vo.MenuMgntVO;
 
 public class MenuMgntController {
 

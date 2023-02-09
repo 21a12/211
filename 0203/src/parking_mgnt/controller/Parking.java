@@ -3,7 +3,6 @@ package parking_mgnt.controller;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
-import java.util.Set;
 
 public class Parking {
 
@@ -95,20 +94,20 @@ public class Parking {
 					continue;
 				}
 
-				System.out.print("차 남바(4자리) : ");
+				System.out.print("차 번호(4자리) : ");
 				String carNum = scan.nextLine();
 				if (carNumCheck(carNum)) {
-					System.out.println("남바 4자리 안맞음");
+					System.out.println("번호 4자리 안맞음");
 					continue;
 				}
 
 				if (carMap.size() > 0) {
 					if (carMap.containsKey(carNum)) {
 						if (carMap.get(carNum).equals(carType)) {
-							System.out.println("남바 및 타입 중복");
+							System.out.println("번호 및 타입 중복");
 							continue;
 						}
-						System.out.println("남바 중복... 내용 수정? (Y/N)");
+						System.out.println("번호 중복... 내용 수정? (Y/N)");
 						String ans = scan.nextLine();
 						if (ans.toLowerCase().equals("y") || ans.equals("ㅛ")) {
 							carMap.put(carNum, carType);
@@ -135,12 +134,12 @@ public class Parking {
 				
 				int cnt = 0;
 				for (String key : carMap.keySet()) {
-					System.out.println("No."+ ++cnt + "	차 남바 : " + key + "	차 종류 : " + carMap.get(key));
+					System.out.println("No."+ ++cnt + "	차 번호 : " + key + "	차 종류 : " + carMap.get(key));
 				}
-				System.out.print("차 남바 : ");
+				System.out.print("차 번호 : ");
 				String carNum = scan.nextLine();
 				if (carNumCheck(carNum)) {
-					System.out.println("남바 4자리 안맞음");
+					System.out.println("번호 4자리 안맞음");
 					continue;
 				}
 				
@@ -159,11 +158,11 @@ public class Parking {
 				int minute = time % 60;
 
 				String timeFormat = hour > 0 ? Integer.toString(hour) + "시간 " + minute + "분" : minute + "분";
-				int money = time/10*PRICE.get(carMap.get(carNum));
+				int money = time / 10 * PRICE.get(carMap.get(carNum));
 				int typePirce = PRICE.get(carMap.get(carNum));
-				
+
 				System.out.println("=====출차 정보=====");
-				System.out.printf("차 남바	: %s\n차 종류	: %s ...10분당 %d원\n주차시간	: %s\n정산 금액	: %d",carNum,carMap.get(carNum),typePirce,timeFormat, money);
+				System.out.printf("차 번호	: %s\n차 종류	: %s ...10분당 %d원\n주차시간	: %s\n정산 금액	: %d",carNum,carMap.get(carNum),typePirce,timeFormat, money);
 				
 				System.out.print("출차 확인? (Y/N)");
 				String yyyy = scan.nextLine();

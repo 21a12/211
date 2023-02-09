@@ -9,6 +9,8 @@ public class CarDAO {
 	
 	private List<Map<CarType,Integer>> dataSource;
 	
+	
+	
 //	public int carIn(String type,int time) {
 //		return 1;
 //	}

@@ -261,8 +261,14 @@ public class AAA {
 		a.getLongText("123","1234","12345");
 		
 //		54. 문자열 변수 하나와 정수형 변수 두 개를 입력받아 입력받은 두 숫자만큼 문자열을 잘라 반환하는 getSubstring메소드를 작성하고 실행하기
+		a.getSubstring("abcdefghijklmn", 1, 2);
+		
 //		55. 문자열 변수 두 개를 입력받아 첫 번째 문자열에서 두 번째 문자열이 포함되어있는지를 반환하는 isContains메소스를 작성하고 실행하기
+		a.isContains("test","t");
+		
 //		56. 문자열 변수 세 개를 입력받아 첫 번째 문자열에서 두 번째 문자열을 세 번째 문자열로 교체하여 반환하는 getReplaced 메소드를 작성하고 실행하기
+		a.getReplaced("test1234","1234","5678");
+		
 //		57. 여러 개의 상품(상품명, 가격)을 가지는 클래스를 만들고 "상품명 | 가격" 형태로 반환하는 toString 메소드를 작성하고 실행하기
 //		58. 여러 개의 상품(상품명, 가격)을 가지는 클래스를 만들고 "상품명"을 입력하면 재고 하나를 제거하는 removeOne(상품명) 메소드를 작성하고 실행하기
 //		59. 여러 개의 상품(상품명, 가격)과 금액을 가지는 클래스를 만들고 "상품명"을 입력하면 재고하나를 제거하고 금액을 상품가격만큼 증가시키는 order(상품명) 메소드를 작성하고 실행하기
@@ -283,11 +289,26 @@ public class AAA {
 		
 		
 	}
-
+	private String getReplaced(String str1, String str2, String str3) {
+		return str1.replace(str2, str3);
+	}
+	
+	private boolean isContains(String str1, String str2) {
+		return str1.contains(str2);
+	}
+	
+	private String getSubstring(String str, int i, int j) {
+		return str.substring(i,j);
+	}
+	
 	private String getLongText(String a, String b, String c) {
-		String result = "";
-		
-		return result;
+		if (a.length() > b.length() && a.length() > c.length()) {
+			return a;
+		} else if (b.length() > a.length() && b.length() > c.length()) {
+			return b;
+		} else {
+			return c;
+		}
 	}
 	
 	private String plusStrings(String str1, String str2) {

@@ -5,6 +5,8 @@ import com.ktdsuniversity.edu.cafe.menu.mgnt.dao.MenuListDAO;
 
 public class Print {
 
+	ExceptionUtil exception = new ExceptionUtil();
+	
 	private String str;
 	
 	/**
@@ -21,7 +23,7 @@ public class Print {
 //				+ "====================");
 		MenuListDAO mld = new MenuListDAO();
 		String menuTitle = "";
-		System.out.println("====================");
+		divideLine();
 		for (int i = 0; i < mld.getMainMenuList().size(); i++) {
 			if (i + 1 < mld.getMainMenuList().size()) {
 				menuTitle = mld.getMainMenuList().get(i + 1);
@@ -31,11 +33,11 @@ public class Print {
 				System.out.printf("%d. %s\n", i + 1, menuTitle);
 			}
 		}
-		System.out.println("====================");
-
+		divideLine();
+		System.out.print("메뉴 선택(숫자) : ");
 	}
 	
-	public void type() {
+	public void type(String str) {
 //		System.out.println("===등록 메뉴 타입 선택===\r\n"
 //				+ "1. 커피\r\n"
 //				+ "2. 음료\r\n"
@@ -44,32 +46,33 @@ public class Print {
 //				+ "====뒤로가기 아무버튼====");
 		CategoryDAO cd = new CategoryDAO();
 		String categoryTitle = "";
-	}
-
-	public String menuSelect(int num) {
-		if (num == 1) {
-			return "커피";
-		} else if (num == 2) {
-			return "음료";
-		} else if (num == 3) {
-			return "티";
-		} else if (num == 4) {
-			return "디저트";
-		} else {
-			return "없음";
+		System.out.println("===등록 메뉴 타입 선택===");
+		for (int i = 0 ; i < cd.getcategoryList().size() ; i++) {
+			categoryTitle = cd.getcategoryList().get(i);
+			System.out.printf("%d. %s\n", i+1, categoryTitle);
 		}
+		System.out.println("====뒤로가기 아무버튼====");
+		
+		this.scanInt(str);
 	}
-
-	public void waitForInputInt(String str, int num) {
+	
+	public void scanInt(String str) {
 		System.out.print(str + "할 메뉴 타입 선택(숫자) : ");
 	}
 	
-	public void waitForInputStr(String str) {
+	public void scanStr(String str) {
 		System.out.print(str + "할 메뉴 타입 선택(문자) : ");
 	}
 	
 	public void inputErr() {
 		System.out.println("잘못된 입력");
 	}
+	
+	public void divideLine() {
+		System.out.println("====================");
+	}
 
+	public void typeTitleLine(String str) {
+		System.out.printf("===%s 메뉴 타입 선택===\n",str);
+	}
 }

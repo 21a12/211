@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
+import com.ktdsuniversity.edu.cafe.menu.mgnt.dao.MenuListDAO;
+import com.ktdsuniversity.edu.cafe.menu.mgnt.service.MainHandler;
 import com.ktdsuniversity.edu.cafe.menu.mgnt.service.MenuMgntService;
 import com.ktdsuniversity.edu.cafe.menu.mgnt.service.MenuMgntServiceImpl;
 import com.ktdsuniversity.edu.cafe.menu.mgnt.util.ExceptionUtil;
@@ -20,6 +22,9 @@ public class MenuMgntController {
 
 		Scanner scan = new Scanner(System.in);
 		Print print = new Print();
+		MenuListDAO menuDAO = new MenuListDAO();
+		List<String> menuList = menuDAO.getMainMenuList();
+		MainHandler handler = new MainHandler();
 
 		System.out.println("**Cafe Menu Management System**");
 		int menu;
@@ -37,6 +42,7 @@ public class MenuMgntController {
 				print.inputErr();
 				continue;
 			}
+			
 
 			if (menu == 6) {
 				System.out.println("ㄹㅇ 종료? Y/N");
@@ -51,18 +57,20 @@ public class MenuMgntController {
 			}
 			// 등록 .create(itemType1, name)
 			else if (menu == 1) {
-				print.type();
-				System.out.print("등록할 메뉴 타입 선택(숫자) : ");
+				String menuTitle= menuList.get(menu);
+				print.type(menuTitle);
 				
 				input = scan.nextLine();
 				if (exception.inputNum(input)) {
 					itemTypeNum = Integer.parseInt(input);
 				} else {
 					print.inputErr();
+					itemTypeNum=0;
 					continue;
 				}
 
-				itemType = print.menuSelect(itemTypeNum);
+				itemType = handler.menuSelect(itemTypeNum);
+				
 				if (itemType.equals("없음")) {
 					System.out.println("유효하지않음 뒤로가기");
 					continue;
@@ -80,8 +88,8 @@ public class MenuMgntController {
 
 			// 수정 .update(itemType1, itemIdx, name)
 			else if (menu == 2) {
-				print.type();
-				System.out.print("수정할 메뉴 타입 선택(숫자) : ");
+				String menuTitle = menuList.get(menu);
+				print.type(menuTitle);
 
 				input = scan.nextLine();
 				if (exception.inputNum(input)) {
@@ -91,7 +99,7 @@ public class MenuMgntController {
 					continue;
 				}
 
-				itemType = print.menuSelect(itemTypeNum);
+				itemType = handler.menuSelect(itemTypeNum);
 				if (itemType.equals("없음")) {
 					System.out.println("유효하지않음 뒤로가기");
 					continue;
@@ -130,8 +138,9 @@ public class MenuMgntController {
 
 			// 삭제 .delete(itemType1, itemIdx)
 			else if (menu == 3) {
-				print.type();
-				System.out.print("삭제할 메뉴 타입 선택(숫자) : ");
+				String menuTitle = menuList.get(menu);
+				print.type(menuTitle);
+				
 				
 				input = scan.nextLine();
 				if (exception.inputNum(input)) {
@@ -141,7 +150,7 @@ public class MenuMgntController {
 					continue;
 				}
 
-				itemType = print.menuSelect(itemTypeNum);
+				itemType = handler.menuSelect(itemTypeNum);
 				if (itemType.equals("없음")) {
 					System.out.println("유효하지않음 뒤로가기");
 					continue;
@@ -170,8 +179,9 @@ public class MenuMgntController {
 
 			// 조회...단일 .readSome(itemType)
 			else if (menu == 4) {
-				print.type();
-				System.out.print("조회할 메뉴 타입 선택(숫자) : ");
+				String menuTitle = menuList.get(menu);
+				print.type(menuTitle);
+
 				
 				input = scan.nextLine();
 				if (exception.inputNum(input)) {
@@ -181,7 +191,7 @@ public class MenuMgntController {
 					continue;
 				}
 
-				itemType = print.menuSelect(itemTypeNum);
+				itemType = handler.menuSelect(itemTypeNum);
 				if (itemType.equals("없음")) {
 					System.out.println("유효하지않음 뒤로가기");
 					continue;

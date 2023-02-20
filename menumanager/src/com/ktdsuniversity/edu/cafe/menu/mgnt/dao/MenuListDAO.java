@@ -21,12 +21,12 @@ public class MenuListDAO {
 		return mainMenuList;
 	}
 
-	public void addMainMenuList(String str) {
-		this.mainMenuList.add(str);
-	}
-	
-	public void popMainMenuList(int index) {
-		this.mainMenuList.remove(index);
-	}
+//	public void addMainMenuList(String str) {
+//		this.mainMenuList.add(str);
+//	}
+//	
+//	public void popMainMenuList(int index) {
+//		this.mainMenuList.remove(index);
+//	}
 
 }

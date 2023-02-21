@@ -37,7 +37,7 @@ public class Print {
 		System.out.print("메뉴 선택(숫자) : ");
 	}
 	
-	public void type(String str) {
+	public void type() {
 //		System.out.println("===등록 메뉴 타입 선택===\r\n"
 //				+ "1. 커피\r\n"
 //				+ "2. 음료\r\n"
@@ -52,8 +52,10 @@ public class Print {
 			System.out.printf("%d. %s\n", i+1, categoryTitle);
 		}
 		System.out.println("====뒤로가기 아무버튼====");
-		
-		this.scanInt(str);
+	}
+	
+	public void complete(String str) {
+		System.out.printf("!!%s 완료!!\n",str);
 	}
 	
 	public void scanInt(String str) {

@@ -57,39 +57,51 @@ public class MenuMgntController {
 			}
 			// 등록 .create(itemType1, name)
 			else if (menu == 1) {
-				String menuTitle= menuList.get(menu);
-				print.type(menuTitle);
-				
-				input = scan.nextLine();
-				if (exception.inputNum(input)) {
-					itemTypeNum = Integer.parseInt(input);
-				} else {
-					print.inputErr();
-					itemTypeNum=0;
-					continue;
+				String menuTitle = menuList.get(menu);
+				print.type();
+
+				while (true) {
+					print.scanInt(menuTitle);
+					input = scan.nextLine();
+					
+					if (exception.inputNum(input)) {
+						itemTypeNum = Integer.parseInt(input);
+						itemType = handler.menuSelect(itemTypeNum);
+						if (itemType.equals("없음")) {
+							System.out.println("범위 유효하지않음 뒤로가기");
+							continue;
+						} else {
+							break;
+						}
+						
+					} else {
+						print.inputErr();
+						itemTypeNum = 0;
+						continue;
+					}
 				}
 
-				itemType = handler.menuSelect(itemTypeNum);
-				
-				if (itemType.equals("없음")) {
-					System.out.println("유효하지않음 뒤로가기");
-					continue;
+				while (true) {
+					System.out.print("등록할 메뉴 이름 작성(문자) : ");
+					String itemName = scan.nextLine();
+					
+					if (exception.inputStr(itemName)) {
+						MenuMgntVO name = new MenuMgntVO();
+						name.setItemName(itemName);
+						service.create(itemType, name);
+						print.complete(menuTitle);
+						break;
+					} else {
+						print.inputErr();
+						continue;
+					}
 				}
-
-				System.out.print("등록할 메뉴 이름 작성(문자) : ");
-				String itemName = scan.nextLine();
-
-				MenuMgntVO name = new MenuMgntVO();
-				name.setItemName(itemName);
-				service.create(itemType, name);
-				System.out.println("!!등록 완료!!");
-
 			}
 
 			// 수정 .update(itemType1, itemIdx, name)
 			else if (menu == 2) {
 				String menuTitle = menuList.get(menu);
-				print.type(menuTitle);
+				print.type();
 
 				input = scan.nextLine();
 				if (exception.inputNum(input)) {
@@ -139,7 +151,7 @@ public class MenuMgntController {
 			// 삭제 .delete(itemType1, itemIdx)
 			else if (menu == 3) {
 				String menuTitle = menuList.get(menu);
-				print.type(menuTitle);
+				print.type();
 				
 				
 				input = scan.nextLine();
@@ -180,7 +192,8 @@ public class MenuMgntController {
 			// 조회...단일 .readSome(itemType)
 			else if (menu == 4) {
 				String menuTitle = menuList.get(menu);
-				print.type(menuTitle);
+				print.type();
+				print.scanInt(menuTitle);
 
 				
 				input = scan.nextLine();

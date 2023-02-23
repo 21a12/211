@@ -30,19 +30,28 @@ public class MenuMgntController {
 		int menu;
 		int itemTypeNum;
 		String itemType;
+		String menuTitle;
 
 		while (true) {
 			print.menu();
 
-			String input = scan.nextLine();
-
-			if (exception.inputNum(input)) {
-				menu = Integer.parseInt(input);
-			} else {
-				print.inputErr();
-				continue;
+			String input = "";
+			while (true) {
+				print.menuInput();
+				input = scan.nextLine();
+				if (exception.inputNum(input)) {
+					if (exception.checkMenuSize(Integer.parseInt(input))) {
+						menu = Integer.parseInt(input);
+						break;
+					} else {
+						print.overRange();
+						continue;
+					}
+				} else {
+					print.inputErr();
+					continue;
+				}
 			}
-			
 
 			if (menu == 6) {
 				System.out.println("ㄹㅇ 종료? Y/N");
@@ -57,23 +66,27 @@ public class MenuMgntController {
 			}
 			// 등록 .create(itemType1, name)
 			else if (menu == 1) {
-				String menuTitle = menuList.get(menu);
+				menuTitle = menuList.get(menu);
 				print.type();
 
 				while (true) {
 					print.scanInt(menuTitle);
 					input = scan.nextLine();
-					
+
 					if (exception.inputNum(input)) {
 						itemTypeNum = Integer.parseInt(input);
 						itemType = handler.menuSelect(itemTypeNum);
+//						if (itemTypeNum == 0) {
+//							print.back();
+//							break; // 뒤로안가고 빈칸진행되네;
+//						}
 						if (itemType.equals("없음")) {
-							System.out.println("범위 유효하지않음 뒤로가기");
+							print.overRange();
 							continue;
 						} else {
 							break;
 						}
-						
+
 					} else {
 						print.inputErr();
 						itemTypeNum = 0;
@@ -82,9 +95,9 @@ public class MenuMgntController {
 				}
 
 				while (true) {
-					System.out.print("등록할 메뉴 이름 작성(문자) : ");
+					print.scanStr(menuTitle);
 					String itemName = scan.nextLine();
-					
+
 					if (exception.inputStr(itemName)) {
 						MenuMgntVO name = new MenuMgntVO();
 						name.setItemName(itemName);
@@ -100,60 +113,82 @@ public class MenuMgntController {
 
 			// 수정 .update(itemType1, itemIdx, name)
 			else if (menu == 2) {
-				String menuTitle = menuList.get(menu);
+				menuTitle = menuList.get(menu);
 				print.type();
 
-				input = scan.nextLine();
-				if (exception.inputNum(input)) {
-					itemTypeNum = Integer.parseInt(input);
-				} else {
-					print.inputErr();
-					continue;
-				}
+				while (true) {
+					print.scanInt(menuTitle);
+					input = scan.nextLine();
 
-				itemType = handler.menuSelect(itemTypeNum);
-				if (itemType.equals("없음")) {
-					System.out.println("유효하지않음 뒤로가기");
-					continue;
+					if (exception.inputNum(input)) {
+						itemTypeNum = Integer.parseInt(input);
+						itemType = handler.menuSelect(itemTypeNum);
+						if (itemType.equals("없음")) {
+							print.overRange();
+							continue;
+						} else {
+							break;
+						}
+					} else {
+						print.inputErr();
+						itemTypeNum = 0;
+						continue;
+					}
 				}
 
 				int cnt = 0;
 				for (MenuMgntVO itemList : service.readSome(itemType)) {
 					System.out.printf("[%d] %s\n", cnt++, itemList.getItemName());
 				}
-				;
 
 				// 목록 없을 때 탈출
 				if (cnt == 0) {
 					System.out.println("아이템 목록이 존재하지 않음 ㅂ");
 					continue;
 				}
-
-				System.out.print("수정할 아이템 인덱스 입력(숫자) : ");
-				int itemIdx = scan.nextInt();
-				scan.nextLine();
+				
+				int itemIdx = 0;
+				
+				while (true) {
+					print.scanInt(menuTitle);
+					input = scan.nextLine();
+					
+					if (exception.inputNum(input)) {
+						itemIdx = Integer.parseInt(input);
+						break;
+					} else {
+						print.inputErr();
+						continue;
+					}
+				}
 
 				if (itemIdx >= cnt) {
-					System.out.println("유효하지않음 뒤로가기");
+					print.overRange();
 					continue;
 				}
 
-				System.out.print("수정할 메뉴 이름 작성(문자) : ");
-				String itemName = scan.nextLine();
-
-				MenuMgntVO name = new MenuMgntVO();
-				name.setItemName(itemName);
-
-				service.update(itemType, itemIdx, name);
-				System.out.println("!!수정 완료!!");
+				while (true) {
+					print.scanStr(menuTitle);
+					String itemName = scan.nextLine();
+					
+					if (exception.inputStr(itemName)) {
+						MenuMgntVO name = new MenuMgntVO();
+						name.setItemName(itemName);
+						service.update(itemType, itemIdx, name);
+						print.complete(menuTitle);
+						break;
+					} else {
+						print.inputErr();
+						continue;
+					}
+				}
 			}
 
 			// 삭제 .delete(itemType1, itemIdx)
 			else if (menu == 3) {
-				String menuTitle = menuList.get(menu);
+				menuTitle = menuList.get(menu);
 				print.type();
-				
-				
+
 				input = scan.nextLine();
 				if (exception.inputNum(input)) {
 					itemTypeNum = Integer.parseInt(input);
@@ -191,11 +226,10 @@ public class MenuMgntController {
 
 			// 조회...단일 .readSome(itemType)
 			else if (menu == 4) {
-				String menuTitle = menuList.get(menu);
+				menuTitle = menuList.get(menu);
 				print.type();
 				print.scanInt(menuTitle);
 
-				
 				input = scan.nextLine();
 				if (exception.inputNum(input)) {
 					itemTypeNum = Integer.parseInt(input);

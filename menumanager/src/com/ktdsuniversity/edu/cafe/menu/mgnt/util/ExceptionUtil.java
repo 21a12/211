@@ -1,10 +1,12 @@
 package com.ktdsuniversity.edu.cafe.menu.mgnt.util;
 
 import com.ktdsuniversity.edu.cafe.menu.mgnt.dao.CategoryDAO;
+import com.ktdsuniversity.edu.cafe.menu.mgnt.dao.MenuListDAO;
 
 public class ExceptionUtil {
 
-	CategoryDAO category = new CategoryDAO();
+	CategoryDAO categoryList = new CategoryDAO();
+	MenuListDAO menuList = new MenuListDAO();
 
 	public boolean inputNum(String input) {
 		if (this.inputNull(input) && (input.length() == input.replaceAll("[^0-9]", "").length())) {
@@ -25,7 +27,11 @@ public class ExceptionUtil {
 	}
 
 	public boolean checkCategorySize(int index) {
-		return index > 0 && index <= category.getcategoryList().size();
+		return index > 0 && index <= categoryList.getcategoryList().size();
+	}
+	
+	public boolean checkMenuSize(int index) {
+		return index > 0 && index <= menuList.getMainMenuList().size();
 	}
 
 }

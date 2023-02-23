@@ -6,9 +6,9 @@ import com.ktdsuniversity.edu.cafe.menu.mgnt.dao.MenuListDAO;
 public class Print {
 
 	ExceptionUtil exception = new ExceptionUtil();
-	
+
 	private String str;
-	
+
 	/**
 	 * 기본화면 - Mgnt 전체 메뉴 출력
 	 */
@@ -34,9 +34,8 @@ public class Print {
 			}
 		}
 		divideLine();
-		System.out.print("메뉴 선택(숫자) : ");
 	}
-	
+
 	public void type() {
 //		System.out.println("===등록 메뉴 타입 선택===\r\n"
 //				+ "1. 커피\r\n"
@@ -47,34 +46,46 @@ public class Print {
 		CategoryDAO cd = new CategoryDAO();
 		String categoryTitle = "";
 		System.out.println("===등록 메뉴 타입 선택===");
-		for (int i = 0 ; i < cd.getcategoryList().size() ; i++) {
+		for (int i = 0; i < cd.getcategoryList().size(); i++) {
 			categoryTitle = cd.getcategoryList().get(i);
-			System.out.printf("%d. %s\n", i+1, categoryTitle);
+			System.out.printf("%d. %s\n", i + 1, categoryTitle);
 		}
-		System.out.println("====뒤로가기 아무버튼====");
+		System.out.println("====뒤로가기  미구현====");
 	}
-	
+
+	public void menuInput() {
+		System.out.print("메뉴 선택(숫자) : ");
+	}
+
 	public void complete(String str) {
-		System.out.printf("!!%s 완료!!\n",str);
+		System.out.printf("!!%s 완료!!\n", str);
 	}
-	
+
 	public void scanInt(String str) {
 		System.out.print(str + "할 메뉴 타입 선택(숫자) : ");
 	}
-	
+
 	public void scanStr(String str) {
 		System.out.print(str + "할 메뉴 타입 선택(문자) : ");
 	}
-	
+
 	public void inputErr() {
 		System.out.println("잘못된 입력");
 	}
-	
+
+	public void overRange() {
+		System.out.println("범위 유효하지않음 뒤로가기");
+	}
+
 	public void divideLine() {
 		System.out.println("====================");
 	}
+	
+	public void back() {
+		System.out.println("<< 이전으로 <<");
+	}
 
 	public void typeTitleLine(String str) {
-		System.out.printf("===%s 메뉴 타입 선택===\n",str);
+		System.out.printf("===%s 메뉴 타입 선택===\n", str);
 	}
 }

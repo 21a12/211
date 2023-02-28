@@ -1,11 +1,10 @@
 package com.ktdsuniversity.edu.cafe.menu.mgnt.util;
 
-import com.ktdsuniversity.edu.cafe.menu.mgnt.dao.CategoryDAO;
 import com.ktdsuniversity.edu.cafe.menu.mgnt.dao.MenuListDAO;
+import com.ktdsuniversity.edu.cafe.menu.mgnt.service.MainHandler;
 
 public class ExceptionUtil {
 
-	CategoryDAO categoryList = new CategoryDAO();
 	MenuListDAO menuList = new MenuListDAO();
 
 	public boolean inputNum(String input) {
@@ -27,7 +26,7 @@ public class ExceptionUtil {
 	}
 
 	public boolean checkCategorySize(int index) {
-		return index > 0 && index <= categoryList.getcategoryList().size();
+		return index > 0 && index <= MainHandler.cd.getcategoryList().size();
 	}
 	
 	public boolean checkMenuSize(int index) {

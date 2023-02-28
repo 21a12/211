@@ -1,13 +1,15 @@
 package com.ktdsuniversity.edu.cafe.menu.mgnt.util;
 
-import com.ktdsuniversity.edu.cafe.menu.mgnt.dao.CategoryDAO;
 import com.ktdsuniversity.edu.cafe.menu.mgnt.dao.MenuListDAO;
+import com.ktdsuniversity.edu.cafe.menu.mgnt.service.MainHandler;
 
 public class Print {
 
 	ExceptionUtil exception = new ExceptionUtil();
+	MenuListDAO mld = new MenuListDAO();
 
-	private String str;
+	String menuTitle = "";
+	String categoryTitle = "";
 
 	/**
 	 * 기본화면 - Mgnt 전체 메뉴 출력
@@ -21,8 +23,6 @@ public class Print {
 //				+ "5. 조회...전체\r\n"
 //				+ "6. 종료\r\n"
 //				+ "====================");
-		MenuListDAO mld = new MenuListDAO();
-		String menuTitle = "";
 		divideLine();
 		for (int i = 0; i < mld.getMainMenuList().size(); i++) {
 			if (i + 1 < mld.getMainMenuList().size()) {
@@ -43,11 +43,9 @@ public class Print {
 //				+ "3. 티\r\n"
 //				+ "4. 디저트\r\n"
 //				+ "====뒤로가기 아무버튼====");
-		CategoryDAO cd = new CategoryDAO();
-		String categoryTitle = "";
 		System.out.println("===등록 메뉴 타입 선택===");
-		for (int i = 0; i < cd.getcategoryList().size(); i++) {
-			categoryTitle = cd.getcategoryList().get(i);
+		for (int i = 0; i < MainHandler.cd.getcategoryList().size(); i++) {
+			categoryTitle = MainHandler.cd.getcategoryList().get(i);
 			System.out.printf("%d. %s\n", i + 1, categoryTitle);
 		}
 		System.out.println("====뒤로가기  미구현====");
@@ -80,7 +78,7 @@ public class Print {
 	public void divideLine() {
 		System.out.println("====================");
 	}
-	
+
 	public void back() {
 		System.out.println("<< 이전으로 <<");
 	}

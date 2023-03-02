@@ -13,7 +13,7 @@ import com.ktdsuniversity.edu.cafe.menu.mgnt.vo.MenuMgntVO;
 
 public class MainHandler {
 
-	static MenuMgntService service = new MenuMgntServiceImpl();
+	public static final MenuMgntService service = new MenuMgntServiceImpl();
 	public static CategoryDAO cd = new CategoryDAO();
 	static ExceptionUtil exception = new ExceptionUtil();
 
@@ -22,11 +22,16 @@ public class MainHandler {
 	MenuListDAO menuDAO = new MenuListDAO();
 	List<String> menuList = menuDAO.getMainMenuList();
 	CommonHandler common = new CommonHandler();
-	
+
 	CreateHandler create = new CreateHandler();
+	UpdateHandler update = new UpdateHandler();
+	DeleteHandler delete = new DeleteHandler();
+	ReadSomeHandler readSome = new ReadSomeHandler();
+	ReadAllHandler readAll = new ReadAllHandler();
 
 	int menu;
 	int itemTypeNum;
+	int result;
 	String itemType;
 	String menuTitle;
 
@@ -66,182 +71,54 @@ public class MainHandler {
 			}
 			// 등록 .create(itemType1, name)
 			else if (menu == 1) {
-				create.run(menu);
 
+				result = create.run(menu);
+
+				if (result == 0) {
+					continue;
+				}
 			}
 
 			// 수정 .update(itemType1, itemIdx, name)
 			else if (menu == 2) {
-//				menuTitle = menuList.get(menu);
-//				print.type();
-//
-//				while (true) {
-//					print.scanInt(menuTitle);
-//					input = scan.nextLine();
-//
-//					if (exception.inputNum(input)) {
-//						itemTypeNum = Integer.parseInt(input);
-//						itemType = common.menuSelect(itemTypeNum);
-//						if (itemType.equals("없음")) {
-//							print.overRange();
-//							continue;
-//						} else {
-//							break;
-//						}
-//					} else {
-//						print.inputErr();
-//						itemTypeNum = 0;
-//						continue;
-//					}
-//				}
-//
-//				int cnt = 0;
-//				for (MenuMgntVO itemList : service.readSome(itemType)) {
-//					System.out.printf("[%d] %s\n", cnt++, itemList.getItemName());
-//				}
-//
-//				// 목록 없을 때 탈출
-//				if (cnt == 0) {
-//					System.out.println("아이템 목록이 존재하지 않음 ㅂ");
-//					continue;
-//				}
-//
-//				int itemIdx = 0;
-//
-//				while (true) {
-//					print.scanInt(menuTitle);
-//					input = scan.nextLine();
-//
-//					if (exception.inputNum(input)) {
-//						itemIdx = Integer.parseInt(input);
-//						break;
-//					} else {
-//						print.inputErr();
-//						continue;
-//					}
-//				}
-//
-//				if (itemIdx >= cnt) {
-//					print.overRange();
-//					continue;
-//				}
-//
-//				while (true) {
-//					print.scanStr(menuTitle);
-//					String itemName = scan.nextLine();
-//
-//					if (exception.inputStr(itemName)) {
-//						MenuMgntVO name = new MenuMgntVO();
-//						name.setItemName(itemName);
-//						service.update(itemType, itemIdx, name);
-//						print.complete(menuTitle);
-//						break;
-//					} else {
-//						print.inputErr();
-//						continue;
-//					}
-//				}
+
+				result = update.run(menu);
+
+				if (result == 0) {
+					continue;
+				}
 			}
 
 			// 삭제 .delete(itemType1, itemIdx)
 			else if (menu == 3) {
-				menuTitle = menuList.get(menu);
-				print.type();
 
-				input = scan.nextLine();
-				if (exception.inputNum(input)) {
-					itemTypeNum = Integer.parseInt(input);
-				} else {
-					print.inputErr();
+				result = delete.run(menu);
+
+				if (result == 0) {
 					continue;
 				}
-
-				itemType = common.menuSelect(itemTypeNum);
-				if (itemType.equals("없음")) {
-					System.out.println("유효하지않음 뒤로가기");
-					continue;
-				}
-
-				int cnt = 0;
-				for (MenuMgntVO itemList : service.readSome(itemType)) {
-					System.out.printf("[%d] %s\n", cnt++, itemList.getItemName());
-				}
-				;
-
-				// 목록 없을 때 탈출
-				if (cnt == 0) {
-					System.out.println("아이템 목록이 존재하지 않음 ㅂ");
-					continue;
-				}
-
-				System.out.print("삭제할 아이템 인덱스 입력(숫자) : ");
-				int itemIdx = scan.nextInt();
-				scan.nextLine();
-
-				service.delete(itemType, itemIdx);
-				System.out.println("!!삭제 완료!!");
-
 			}
 
-			// 조회...단일 .readSome(itemType)
+			// 조회...종류 .readSome(String itemType, int itemIdx)
 			else if (menu == 4) {
-				menuTitle = menuList.get(menu);
-				print.type();
-				print.scanInt(menuTitle);
-
-				input = scan.nextLine();
-				if (exception.inputNum(input)) {
-					itemTypeNum = Integer.parseInt(input);
-				} else {
-					print.inputErr();
+				
+				result = readSome.run(menu);
+				
+				if (result == 0) {
 					continue;
 				}
-
-				itemType = common.menuSelect(itemTypeNum);
-				if (itemType.equals("없음")) {
-					System.out.println("유효하지않음 뒤로가기");
-					continue;
-				}
-
-				int cnt = 0;
-				for (MenuMgntVO itemList : service.readSome(itemType)) {
-					System.out.printf("[%d] %s\n", cnt++, itemList.getItemName());
-				}
-				;
-
-				// 목록 없을 때 탈출
-				if (cnt == 0) {
-					System.out.println("아이템 목록이 존재하지 않음 ㅂ");
-					continue;
-				}
-
-				System.out.print("조회할 아이템 인덱스 입력(숫자) : ");
-				int itemIdx = scan.nextInt();
-				scan.nextLine();
-
-				if (itemIdx > cnt) {
-					System.out.println("유효하지않음 뒤로가기");
-					continue;
-				}
-
-				System.out.println(service.read(itemType, itemIdx).getItemName());
 
 			}
 
 			// 조회...전체
 			else if (menu == 5) {
-				Map<String, List<MenuMgntVO>> mapList = new HashMap<>(service.readAll());
-				for (String type : mapList.keySet()) {
-					System.out.println("====	" + type + "	====");
-					for (MenuMgntVO item : mapList.get(type)) {
-						System.out.println(item.getItemName());
-					}
-				}
+				
+				readAll.run(menu);
 
 			}
 
 			else {
-				System.out.println("번호 잘눌러줭");
+				print.overRange();
 			}
 		}
 

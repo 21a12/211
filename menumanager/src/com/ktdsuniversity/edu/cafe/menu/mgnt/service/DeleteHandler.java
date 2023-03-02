@@ -8,8 +8,8 @@ import com.ktdsuniversity.edu.cafe.menu.mgnt.util.ExceptionUtil;
 import com.ktdsuniversity.edu.cafe.menu.mgnt.util.Print;
 import com.ktdsuniversity.edu.cafe.menu.mgnt.vo.MenuMgntVO;
 
-public class UpdateHandler {
-
+public class DeleteHandler {
+	
 	ExceptionUtil exception = new ExceptionUtil();
 
 	Scanner scan = new Scanner(System.in);
@@ -24,7 +24,7 @@ public class UpdateHandler {
 	String input = "";
 
 	public int run(int menu) {
-
+		
 		menuTitle = menuList.get(menu);
 		print.type(menuTitle);
 
@@ -32,7 +32,7 @@ public class UpdateHandler {
 		if (itemType.equals("-")) {
 			return 0;
 		}
-
+		
 		int cnt = 0;
 		for (MenuMgntVO itemList : MainHandler.service.readSome(itemType)) {
 			System.out.printf("[%d] %s\n", cnt++, itemList.getItemName());
@@ -43,38 +43,24 @@ public class UpdateHandler {
 			print.notFound();
 			return 0;
 		}
-
+		
 		int itemIdx = 0;
-
+		
 		while (true) {
-			print.scanType(menuTitle, 1);
+			print.scanType(menuTitle,1);
 			input = scan.nextLine();
-
+			
+			if (input.equals("-")) {
+				return 0;
+			}
+			
 			if (exception.inputNum(input)) {
 				itemIdx = Integer.parseInt(input);
 				if (itemIdx >= cnt) {
 					print.overRange();
 					continue;
 				}
-				break;
-			} else {
-				print.inputErr();
-				continue;
-			}
-		}
-
-		while (true) {
-			print.scanType(menuTitle, "a");
-			input = scan.nextLine();
-			
-			if (input.equals("-")) {
-				return 0;
-			}
-
-			if (exception.inputStr(input)) {
-				MenuMgntVO name = new MenuMgntVO();
-				name.setItemName(input);
-				MainHandler.service.update(itemType, itemIdx, name);
+				MainHandler.service.delete(itemType, itemIdx);
 				print.complete(menuTitle);
 				break;
 			} else {
@@ -82,6 +68,7 @@ public class UpdateHandler {
 				continue;
 			}
 		}
+		
 		return 1;
 	}
 

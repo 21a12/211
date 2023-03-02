@@ -10,41 +10,42 @@ public class CommonHandler {
 
 	ExceptionUtil exception = new ExceptionUtil();
 	CategoryDAO cd = new CategoryDAO();
-	
+
 	Scanner scan = new Scanner(System.in);
 	Print print = new Print();
-	
+
 	int itemTypeNum;
 	String itemType;
 	String menuTitle;
 	String input = "";
-	
+
 	public String menuSelect(int itemTypeNum) {
 		if (exception.checkCategorySize(itemTypeNum)) {
-			return cd.getcategoryList().get(itemTypeNum-1);
+			return cd.getcategoryList().get(itemTypeNum - 1);
 		} else {
 			return "없음";
 		}
 	}
-	
+
 	public String typeSelect(String menuTitle) {
-		
+
 		while (true) {
-			print.scanInt(menuTitle);
+			print.scanType(menuTitle, 1);
 			input = scan.nextLine();
+
+			if (input.equals("-")) {
+				print.back();
+				return "-";
+			}
 
 			if (exception.inputNum(input)) {
 				itemTypeNum = Integer.parseInt(input);
 				itemType = menuSelect(itemTypeNum);
-//				if (itemTypeNum == 0) {
-//					print.back();
-//					break; // 뒤로안가고 빈칸진행되네;
-//				}
 				if (itemType.equals("없음")) {
 					print.overRange();
 					continue;
 				} else {
-					break;
+					return itemType;
 				}
 
 			} else {
@@ -52,9 +53,8 @@ public class CommonHandler {
 				itemTypeNum = 0;
 				continue;
 			}
+
 		}
-		
-		return itemType;
 	}
-	
+
 }

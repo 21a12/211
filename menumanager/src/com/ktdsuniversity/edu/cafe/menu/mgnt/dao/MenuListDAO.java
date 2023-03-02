@@ -13,8 +13,8 @@ public class MenuListDAO {
 		mainMenuList.add("등록");
 		mainMenuList.add("수정");
 		mainMenuList.add("삭제");
-		mainMenuList.add("조회...단일");
-		mainMenuList.add("조회...전체");
+		mainMenuList.add("조회(종류)");
+		mainMenuList.add("조회(전체)");
 	}
 
 	public List<String> getMainMenuList() {

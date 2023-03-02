@@ -23,20 +23,27 @@ public class CreateHandler {
 	String menuTitle;
 	String input = "";
 
-	public void run(int menu) {
+	public int run(int menu) {
 
 		menuTitle = menuList.get(menu);
-		print.type();
-		
+		print.type(menuTitle);
+
 		itemType = common.typeSelect(menuTitle);
+		if (itemType.equals("-")) {
+			return 0;
+		}
 
 		while (true) {
-			print.scanStr(menuTitle);
-			String itemName = scan.nextLine();
+			print.scanType(menuTitle, "a");
+			input = scan.nextLine();
+			
+			if (input.equals("-")) {
+				return 0;
+			}
 
-			if (exception.inputStr(itemName)) {
+			if (exception.inputStr(input)) {
 				MenuMgntVO name = new MenuMgntVO();
-				name.setItemName(itemName);
+				name.setItemName(input);
 				MainHandler.service.create(itemType, name);
 				print.complete(menuTitle);
 				break;
@@ -45,7 +52,7 @@ public class CreateHandler {
 				continue;
 			}
 		}
-
+		return 1;
 	}
 
 }

@@ -36,19 +36,19 @@ public class Print {
 		divideLine();
 	}
 
-	public void type() {
+	public void type(String str) {
 //		System.out.println("===등록 메뉴 타입 선택===\r\n"
 //				+ "1. 커피\r\n"
 //				+ "2. 음료\r\n"
 //				+ "3. 티\r\n"
 //				+ "4. 디저트\r\n"
 //				+ "====뒤로가기 아무버튼====");
-		System.out.println("===등록 메뉴 타입 선택===");
+		System.out.printf("===%s 메뉴 타입 선택===\n", str);
 		for (int i = 0; i < MainHandler.cd.getcategoryList().size(); i++) {
 			categoryTitle = MainHandler.cd.getcategoryList().get(i);
 			System.out.printf("%d. %s\n", i + 1, categoryTitle);
 		}
-		System.out.println("====뒤로가기  미구현====");
+		System.out.println("==== 뒤로가기 [-] ====");
 	}
 
 	public void menuInput() {
@@ -59,12 +59,20 @@ public class Print {
 		System.out.printf("!!%s 완료!!\n", str);
 	}
 
-	public void scanInt(String str) {
-		System.out.print(str + "할 메뉴 타입 선택(숫자) : ");
+	/**
+	 * @param str 메뉴 타이틀 (생성,수정,삭제,조회)
+	 * @param s 입력타입 선택 [ String / int ]
+	 */
+	public void scanType(String str, String s) {
+		System.out.print(str + "할 메뉴 타입 선택(문자) : ");
 	}
 
-	public void scanStr(String str) {
-		System.out.print(str + "할 메뉴 타입 선택(문자) : ");
+	/**
+	 * @param str 메뉴 타이틀 (생성,수정,삭제,조회)
+	 * @param i 입력타입 선택 [ String / int ]
+	 */
+	public void scanType(String str, int i) {
+		System.out.print(str + "할 메뉴 타입 선택(숫자) : ");
 	}
 
 	public void inputErr() {
@@ -80,10 +88,14 @@ public class Print {
 	}
 
 	public void back() {
-		System.out.println("<< 이전으로 <<");
+		System.out.println("[-] 입력...이전으로");
 	}
 
 	public void typeTitleLine(String str) {
 		System.out.printf("===%s 메뉴 타입 선택===\n", str);
+	}
+
+	public void notFound() {
+		System.out.println("아이템 목록이 존재하지 않음 ㅂ");
 	}
 }

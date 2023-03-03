@@ -7,8 +7,9 @@ public class ExceptionUtil {
 
 	MenuListDAO menuList = new MenuListDAO();
 
-	public boolean inputNum(String input) {
+	public int inputNum(String input) {
 		if (this.inputNull(input) && (input.length() == input.replaceAll("[^0-9]", "").length())) {
+			int result = Integer.parseInt(input);
 			return true;
 		}
 		return false;

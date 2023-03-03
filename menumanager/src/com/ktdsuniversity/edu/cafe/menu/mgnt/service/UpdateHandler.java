@@ -22,6 +22,11 @@ public class UpdateHandler {
 	String itemType;
 	String menuTitle;
 	String input = "";
+	
+	String itemName;
+	int price;
+	int stock;
+	String soldout;
 
 	public int run(int menu) {
 
@@ -46,6 +51,7 @@ public class UpdateHandler {
 
 		int itemIdx = 0;
 
+		// itemIdx : 메뉴타입 선택
 		while (true) {
 			print.scanType(menuTitle, 1);
 			input = scan.nextLine();
@@ -62,7 +68,8 @@ public class UpdateHandler {
 				continue;
 			}
 		}
-
+		
+		// itemName : 아이템 이름
 		while (true) {
 			print.scanType(menuTitle, "a");
 			input = scan.nextLine();
@@ -82,6 +89,11 @@ public class UpdateHandler {
 				continue;
 			}
 		}
+		
+//		// price : 아이템 가격
+//		while (true) {
+//			
+//		}
 		return 1;
 	}
 

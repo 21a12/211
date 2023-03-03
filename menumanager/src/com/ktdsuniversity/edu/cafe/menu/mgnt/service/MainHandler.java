@@ -1,8 +1,6 @@
 package com.ktdsuniversity.edu.cafe.menu.mgnt.service;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Scanner;
 
 import com.ktdsuniversity.edu.cafe.menu.mgnt.dao.CategoryDAO;
@@ -23,24 +21,93 @@ public class MainHandler {
 	List<String> menuList = menuDAO.getMainMenuList();
 	CommonHandler common = new CommonHandler();
 
-	CreateHandler create = new CreateHandler();
 	UpdateHandler update = new UpdateHandler();
 	DeleteHandler delete = new DeleteHandler();
 	ReadSomeHandler readSome = new ReadSomeHandler();
 	ReadAllHandler readAll = new ReadAllHandler();
 
-	int menu;
-	int itemTypeNum;
-	int result;
-	String itemType;
-	String menuTitle;
+	int menu, itemTypeNum, result;
+	String itemType, menuTitle, input;
 
+	private String itemName;
+	private int price;
+	private int stock;
+	private boolean soldout;
+	
+	public int create(int menu) {
+
+		menuTitle = menuList.get(menu);
+		print.type(menuTitle);
+
+		itemType = common.typeSelect(menuTitle);
+		if (itemType.equals("-")) {
+			return 0;
+		}
+
+		while (true) {
+//			print.scanType(menuTitle, "a");
+			
+			//입력순서 1. 이름 2. 가격 3. 재고
+			while (true) {
+				System.out.print("이름 입력(문자) : ");
+				input = scan.nextLine();
+				if (input.equals("-")) {
+					return 0;
+				}
+				if (exception.inputStr(input)) {
+					itemName = input;
+				} else {
+					print.inputErr();
+					continue;
+				}
+				while (true) {
+					System.out.print("가격 입력(숫자) : ");
+					input = scan.nextLine();
+					if (input.equals("-")) {
+						return 0;
+					}
+					if (exception.inputNum(input)) {
+						price = Integer.parseInt(input);
+					} else {
+						print.inputErr();
+						continue;
+					}
+					while(true) {
+						System.out.print("수량 입력(숫자) : ");
+						input = scan.nextLine();
+						if (input.equals("-")) {
+							return 0;
+						}
+						if (exception.inputNum(input)) {
+							stock = Integer.parseInt(input);
+						} else {
+							print.inputErr();
+							continue;
+						}
+						break;
+					}
+					break;
+				}
+				soldout = (stock > 0) ? true : false ;
+				
+				MenuMgntVO menuMgntVO = new MenuMgntVO();
+				menuMgntVO.setItemName(itemName);
+				menuMgntVO.setPrice(price);
+				menuMgntVO.setStock(stock);
+				menuMgntVO.setSoldout(soldout);
+				MainHandler.service.create(itemType, menuMgntVO);
+				print.complete(menuTitle);
+				
+				return 1;
+			}
+		}
+	}
+	
 	public void run() {
 
 		while (true) {
 			print.menu();
 
-			String input = "";
 			while (true) {
 				print.menuInput();
 				input = scan.nextLine();
@@ -72,7 +139,7 @@ public class MainHandler {
 			// 등록 .create(itemType1, name)
 			else if (menu == 1) {
 
-				result = create.run(menu);
+				result = create(menu);
 
 				if (result == 0) {
 					continue;
@@ -123,5 +190,7 @@ public class MainHandler {
 		}
 
 	}
+	
+	
 
 }

@@ -8,7 +8,7 @@ public interface ArticleDAO {
 	
 	/**
 	 * 게시글의 새로운 PK값을 조회한다.
-	 * @return 게시갈의 PK값 (AR-날짜-시퀀스)
+	 * @return 게시글의 PK값 (AR-날짜-시퀀스)
 	 */
 	public String createNewArticleNo();
 	
@@ -20,7 +20,6 @@ public interface ArticleDAO {
 	public int createArticle(ArticleVO articleVO);
 	
 	public int deleteArticle(String articleNo);
-	
 	
 	/**
 	 * 모든 게시글의 목록을 조회한다.

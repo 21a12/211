@@ -5,6 +5,8 @@ import java.util.List;
 import com.ktdsuniversity.edu.goodgag.article.service.ArticleService;
 import com.ktdsuniversity.edu.goodgag.article.service.ArticleServiceImpl;
 import com.ktdsuniversity.edu.goodgag.article.vo.ArticleVO;
+import com.ktdsuniversity.edu.goodgag.article_ldl.service.ArticleLdlService;
+import com.ktdsuniversity.edu.goodgag.article_ldl.service.ArticleLdlServiceImpl;
 import com.ktdsuniversity.edu.goodgag.member.dao.MemberDAO;
 import com.ktdsuniversity.edu.goodgag.member.dao.MemberDAOImpl;
 import com.ktdsuniversity.edu.goodgag.member.vo.MemberVO;
@@ -57,7 +59,7 @@ public class GoodGagMain {
 		replyVO.setArticleNo("AR-20230302-00074");
 		replyVO.setEmail(memberVO.getEmail());
 		replyVO.setDescript("댓글달았읍니다");
-//		replyVO.setParentReplyNo(null);
+//		replyVO.setParentReplyNo(null);		// 입력안하면 알아서 null
 		
 //		boolean isSuccess = replyService.createReply(replyVO);
 //		System.out.println(isSuccess);
@@ -71,7 +73,7 @@ public class GoodGagMain {
 		// !!게시글 삭제
 		// String으로 하는것이 맞을까, articleVO로 하는것이 맞을까 
 		String articleNo;
-		articleNo = "AR-20230303-00171";
+		articleNo = "AR-20230306-00193";
 		isSuccess = articleService.deleteArticle(articleNo);
 		System.out.println(isSuccess);
 		
@@ -79,11 +81,24 @@ public class GoodGagMain {
 		// 댓글 삭제
 		
 		// !!게시글 좋아요
+		MemberVO testMem = new MemberVO();
+		ArticleVO testArt = new ArticleVO();
+		boolean decl = false;
+		testMem.setEmail("1@gmail.com");
+		testArt.setArticleNo("AR-20230303-00121");
+		
+		ArticleLdlService articleLdlService = new ArticleLdlServiceImpl();
+		articleLdlService.articleLdl(testMem, testArt, decl);
+		
+		// 다시 누르기
 		
 		
 		
 		// !!게시글 싫어요
 		// 게시글 신고
+		
+		
+		
 		// 댓글 좋아요
 		// 댓글 싫어요
 
